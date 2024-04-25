@@ -1,0 +1,43 @@
+.header-container {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-menu li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.nav-menu li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color .15s linear;
+}
+
+.nav-menu li a:hover {
+    color: rgb(138, 29, 29);
+}
+
+.register-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+}
