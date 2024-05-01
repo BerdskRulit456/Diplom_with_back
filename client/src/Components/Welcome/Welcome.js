@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import CourseCard from '../CourseCard/CourseCard';
 import '../Welcome/Welcome.css'
 import Header from '../Header/Header';
@@ -84,29 +84,31 @@ const courses = [
     }
 ];
 
-const Welcome = () => {
+
+const Welcome = ({ isLoggedIn }) => {
     const [filteredCourses, setFilteredCourses] = useState([]);
     const [selectedLanguage, setSelectedLanguage] = useState('');
-
+    
     const updateFilteredCourses = (filteredCourses, language) => {
         setFilteredCourses(filteredCourses);
         setSelectedLanguage(language);
     };
+    
 
     return (
         <div className="homepage">
-            <Header/>
+            <Header />
             <h1>Welcome to React Courses</h1>
             <p>Enhance your skills in React.js with our comprehensive courses!</p>
             <div className="course-list">
                 {courses.map((course, index) => (
                     <CourseCard
-                        key={index}
-                        title={course.title}
-                        description={course.description}
-                        instructor={course.instructor}
-                        price={course.price}
-                        language={course.language}
+                    key={index}
+                    title={course.title}
+                    description={course.description}
+                    instructor={course.instructor}
+                    price={course.price}
+                    language={course.language}
                     />
                 ))}
             </div>

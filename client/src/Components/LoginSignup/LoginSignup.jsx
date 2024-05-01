@@ -5,8 +5,11 @@ import email_icon from '../Assets/LoginSignUp_icon/email.png'
 import password_icon from '../Assets/LoginSignUp_icon/password.png'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
+import CheckEmail from './CheckEmail/CheckEmail'
+// import CheckableTag from 'antd/es/tag/CheckableTag'
 
-export const LoginSignup = () => {
+export const LoginSignup = ({setIsLoggedIn}) => {
     const [action, setAction] = useState("Sign Up")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -20,6 +23,7 @@ export const LoginSignup = () => {
     const [emailError, setEmailError] = useState("Email не может быть пустым!")
     const [passwordError, setPasswordError] = useState("Пароль не может быть пустым!")
     const [confirmError, setConfirmError] = useState("Пароль не может быть пустым")
+    const [isModalOpen, setIsModalOpen] = useState(false);
     
     const blurHandler = (e) => {
         switch(e.target.name){
@@ -116,25 +120,44 @@ export const LoginSignup = () => {
         setConfirmDirty(false);
     };
     
+    const handleOpenModal = async(e) => {
+        e.preventDefault()
+        setIsModalOpen(true);
+        
+    };
+    
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+    
+    const handleConfirmCode = (code) => {
+        console.log('Подтвержденный код:', code);
+        // Дополнительная логика для обработки подтвержденного кода
+        handleCloseModal();
+    };
+
     const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault()
         if(action === "Sign Up"){
             try{
-                const response = await axios.post('/register', {
-                    fullName: name,
-                    email: email,
-                    password: password
+                const response = await axios.post('/authEmail', {
+                    // fullName: name,
+                    email: email
+                    // password: password
                 })
-                console.log(response.data)
-                console.log(action)
-                navigate('/')
+                // setIsLoggedIn(true)
+                // message.success("Рады знакомству, " + response.data.fullName)
+                // navigate('/')
             }
             catch(e){
                 console.error(e)
+                message.error("Неверно заполнены поля!")
             }
         }
+
+
         else if(action === "Login"){
             try{
                 const response = await axios.post('/login', {
@@ -142,14 +165,17 @@ export const LoginSignup = () => {
                     password: password
                 })
                 console.log(response.data)
-                console.log(action)
+                setIsLoggedIn(true)
+                message.success("Вы успешно авторизовались")
                 navigate('/')
             }
             catch(e){
-                console.error(e)
+                message.error(e.response.data.message)
             }
         }
     }
+
+    
     
     return (
         <div className='reg__comp'>
@@ -235,12 +261,12 @@ export const LoginSignup = () => {
                 >
                     Login
                 </button>
-                <button type="submit" className="submit" onClick={submitHandler}><div>Submit</div></button>
+                <button type="submit" className="submit" onClick={submitHandler} ><div>Submit</div></button>
+                {/* <CheckEmail isOpen={isModalOpen} onClose={handleCloseModal} onConfirm={handleConfirmCode} /> */}
             </div>
         </form>
     </div>
 </div>
-
     )
 }
 

@@ -4,7 +4,21 @@ a{
 
 .reg__comp{
     height: 105vh;
-    background: linear-gradient(#2A00B7, #42006C);
+    background: linear-gradient(-45deg, #ed193b, #a98055, #ce73c0, #681d7a);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .container{
@@ -12,9 +26,10 @@ a{
     flex-direction: column;
     margin: auto;
     width: 600px;
-    background: #fff;
-    /* padding-bottom: 20px; */
-    
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px rgba(255, 255, 255, 0.1) solid;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
 }
 
 .header{
@@ -52,7 +67,8 @@ a{
     margin: auto;
     width: 480px;
     height: 80px;
-    background: #eaeaea;
+    color:transparent;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 6px;
 }
 

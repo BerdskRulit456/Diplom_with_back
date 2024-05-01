@@ -2,6 +2,8 @@ import UsersModel from "../models/Users.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { validationResult } from 'express-validator';
+import * as nodemailer from 'nodemailer'
+
 
 
 export const login = async(req,res) => {
@@ -107,3 +109,40 @@ export const checkMe = async (req, res) =>{
     return res.status(403).json({message: 'Нет доступа'})
   }
 }
+
+export const sendEmail = async(req, res) =>{
+  const codeForEmail = Math.floor(Math.random() * (100000 - 9999 + 1) + 9999)
+  try{
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'tigranoganisyan2004@gmail.com', 
+        pass: 'wxla beap wiry tfkj' 
+      }
+    });
+  
+    const mailOptions = {
+      from: 'tigranoganisyan2004@gmail.com', 
+      to: req.body.email, 
+      subject: 'Тема письма', 
+      text: 'Текст письма',
+      html: 'your code ' + codeForEmail
+    };
+    await transporter.sendMail(mailOptions)
+  }
+  catch(e){
+    res.send(e)
+    res.send(JSON.stringify(codeForEmail))  
+  }
+  // console.log("success")
+  // console.log(req.body.email)
+}
+  
+    // Отправьте письмо
+    //   await transporter.sendMail(mailOptions, function(error, info){
+    //   if (error) {
+    //     console.error(error);
+    //   } else {
+    //     console.log('Email sent: ' + info.response);
+    //   }
+    // });
