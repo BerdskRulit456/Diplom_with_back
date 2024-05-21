@@ -1,10 +1,20 @@
 import UsersModel from "../models/Users.js";
+import Courses from "../models/Courses.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { validationResult } from 'express-validator';
 import * as nodemailer from 'nodemailer'
 
+export const courses = async(req,res) => {
+  try{
+    const courses = await Courses.find();
+    res.json(courses);
 
+  }
+  catch(e){
+    res.status(500).json({ message: err.message });
+  }
+}
 
 export const login = async(req,res) => {
     try{
@@ -59,7 +69,16 @@ export const register = async (req, res) => {
           message: "Пользователь с такой почтой уже зарегистрирован"
         });
       }
-  
+      
+      const checkEmailCode = async() => {
+        try{
+          const response = await axios.post('/authEmail', { email });
+        }
+        catch(e){
+          console.log(e)
+        }
+      }
+
       const password = req.body.password
       const salt = await bcrypt.genSalt(10)
       const hash = await bcrypt.hash(password, salt)
@@ -110,33 +129,33 @@ export const checkMe = async (req, res) =>{
   }
 }
 
-export const sendEmail = async(req, res) =>{
-  const codeForEmail = Math.floor(Math.random() * (100000 - 9999 + 1) + 9999)
-  try{
+export const sendEmail = async (req, res) => {
+  const codeForEmail = Math.floor(Math.random() * (100000 - 9999 + 1) + 9999);
+  try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'tigranoganisyan2004@gmail.com', 
-        pass: 'wxla beap wiry tfkj' 
+        user: 'tigranoganisyan2004@gmail.com',
+        pass: 'wxla beap wiry tfkj'
       }
     });
-  
+
     const mailOptions = {
-      from: 'tigranoganisyan2004@gmail.com', 
-      to: req.body.email, 
-      subject: 'Тема письма', 
+      from: 'tigranoganisyan2004@gmail.com',
+      to: req.body.email,
+      subject: 'Тема письма',
       text: 'Текст письма',
       html: 'your code ' + codeForEmail
     };
-    await transporter.sendMail(mailOptions)
+
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, code: codeForEmail });  // Возвращаем код в ответе
+  } catch (e) {
+    res.status(500).json({ error: e.message });
   }
-  catch(e){
-    res.send(e)
-    res.send(JSON.stringify(codeForEmail))  
-  }
-  // console.log("success")
-  // console.log(req.body.email)
-}
+};
+
+
   
     // Отправьте письмо
     //   await transporter.sendMail(mailOptions, function(error, info){

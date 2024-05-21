@@ -1,0 +1,33 @@
+.MenuForAcc {
+    position: relative;
+}
+
+.popup-menu {
+    position: absolute;
+    top: 66px;
+    right: -10px;
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .7);
+    z-index: 1000;
+}
+
+.popup-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.popup-menu li {
+    padding: 5px 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.popup-menu li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color .2s linear;
+}
+
+.popup-menu li a:hover {
+    color: rgb(138, 29, 29);
+}
