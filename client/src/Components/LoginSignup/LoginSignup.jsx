@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import CheckEmail from './CheckEmail/CheckEmail';
+import ResetPassword from './ResetPassword/ResetPassword';
 
 export const LoginSignup = ({ setIsLoggedIn }) => {
     const [action, setAction] = useState("Sign Up");
@@ -15,41 +16,47 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
     const [emailCode, setEmailCode] = useState('');
     const navigate = useNavigate();
 
-    const switchToSignup = () => {setAction("Sign Up")}
+    const switchToSignup = () => setAction("Sign Up");
 
-    const switchToLogin = () => {setAction("Login")}
+    const switchToLogin = () => setAction("Login");
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true)
-    }
+    const openResPass = () => {
+        setIsResetPasswordOpen(true)
+    };
 
-    const handleCloseModal = () => {setIsModalOpen(false)}
+    const closeResPass = () => setIsResetPasswordOpen(false);
 
-    const handleConfirmCode = async(code) => {
-        console.log('Подтвержденный код:', code)
-        handleCloseModal()
-        try{
-            const response = await axios.post('/register', {fullName, email, password})
+    const handleOpenModal = () => setIsModalOpen(true);
+
+    const handleCloseModal = () => setIsModalOpen(false);
+
+    const handleConfirmCode = async (code) => {
+        console.log('Подтвержденный код:', code);
+        handleCloseModal();
+        try {
+            const response = await axios.post('/register', { fullName, email, password });
+            if ('token' in response.data) {
+                window.localStorage.setItem('token', response.data.token);
+            }
             setIsLoggedIn(true);
             message.success("Вы успешно зарегистрировались");
-            navigate('/')
-        }
-        catch(e){
-            if(e.response && e.response.data.errors){
+            navigate('/');
+        } catch (e) {
+            if (e.response && e.response.data.errors) {
                 e.response.data.errors.forEach(error => {
                     message.error(error.msg);
                 });
-            }
-            else{
+            } else {
                 message.error("Произошла ошибка при регистрации");
             }
         }
     }
 
-    const checkEmailCode = async() => {
+    const checkEmailCode = async () => {
         try {
             const response = await axios.post('/authEmail', { email });
             if (response.data.success) {
@@ -68,23 +75,19 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
     const submitHandler = async (e) => {
         e.preventDefault();
         if (action === "Sign Up") {
-            try{
-                handleOpenModal()
-                checkEmailCode()
+            try {
+                handleOpenModal();
+                checkEmailCode();
+            } catch (e) {
+                console.log(e);
             }
-            catch(e){
-                console.log(e)
-            }
-            
-            
         } else if (action === "Login") {
             try {
                 const response = await axios.post('/login', { email, password });
-                if('token' in response.data){
-                    window.localStorage.setItem('token', response.data.token)
-                }
-                else{
-                    console.log('не удалось авторизоваться')
+                if ('token' in response.data) {
+                    window.localStorage.setItem('token', response.data.token);
+                } else {
+                    console.log('не удалось авторизоваться');
                 }
                 setIsLoggedIn(true);
                 message.success("Вы успешно авторизовались");
@@ -138,7 +141,7 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
                                 name="password"
                             />
                         </div>
-                        
+
                         {action !== "Login" &&
                             <div className="input">
                                 <img src={password_icon} alt="" />
@@ -154,7 +157,7 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
 
                     </div>
                     {action !== "Sign Up" &&
-                        <div className="forgot-password">Lost password? <span>Click Here!</span></div>
+                        <div className="forgot-password">Lost password? <span onClick={openResPass}>Click Here!</span></div>
                     }
                     <div className="submit-container">
                         <button
@@ -181,6 +184,7 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
                 onConfirm={handleConfirmCode}
                 emailCode={emailCode}
             />
+            <ResetPassword modalIsOpen={isResetPasswordOpen} closeModal={closeResPass} />
         </div>
     );
 }

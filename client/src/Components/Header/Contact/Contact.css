@@ -1,0 +1,38 @@
+.contact {
+    text-align: center;
+}
+
+.contact-container {
+    margin-top: 20px;
+}
+
+.contact-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-container li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.contact-container a {
+    display: inline-block;
+    width: 70px;  
+    height: 70px; 
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.contact-container a:hover {
+    background-color: #e0e0e0;
+}
+
+.contact-container img {
+    width: 36px;  
+    height: 36px; 
+}

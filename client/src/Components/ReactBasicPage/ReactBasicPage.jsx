@@ -1,30 +1,28 @@
 import React from 'react';
-import '../ReactBasicPage/ReactBasicPage.css'
+import '../ReactBasicPage/ReactBasicPage.css';
 
-const ReactBasicPage = () => {
-    const info = [{
-        title: "React Basics",
-        description: "Dolor adipisicing consectetur ut aute minim commodo.",
-        instructor: "John Doe",
-        price: 49.99,
-        language:"React",
-    }];
-
-    const infoList = info.map((course, index) => (
-        <div key={index} className="course-info">
-            <h2>{course.title}</h2>
-            <p>{course.description}</p>
-            <p>Instructor: {course.instructor}</p>
-            <p>Price: ${course.price}</p>
-            <p>Language: {course.language}</p>
-        </div>
-    ));
-
+const ReactBasicsPage = ({isLoggedIn}) => {
+    const Linkto = isLoggedIn ? '/React Basics/FirstPage' : '/LoginSignup'
     return (
-        <div className='course-home-page'>
-            {infoList}
+        <div className="course-container">
+        <h1 className="course-title">React Basics</h1>
+        <p className="course-description">
+            Добро пожаловать на курс "React Basics"! В этом курсе вы узнаете основы
+            библиотеки React, включая компоненты, состояния, свойства и жизненный цикл.
+        </p>
+        <div className="course-outline">
+            <h2>Что вы узнаете и чему научитесь:</h2>
+            <ul>
+            <li>Что такое React и зачем он нужен</li>
+            <li>Создатите свой первый компонент</li>
+            <li>Узнаете что такое функциональные и классовые компоненты</li>
+            <li>Поработаем с пропсами и состояниями</li>
+            <li>Основы React Hooks</li>
+            </ul>
+        </div>
+        <a href={Linkto} className="enroll-button">Начать прохождение!</a>
         </div>
     );
 }
 
-export default ReactBasicPage;
+export default ReactBasicsPage;

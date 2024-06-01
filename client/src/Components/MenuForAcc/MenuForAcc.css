@@ -25,6 +25,7 @@
 .popup-menu li a {
     text-decoration: none;
     color: #fff;
+    cursor: pointer;
     transition: color .2s linear;
 }
 

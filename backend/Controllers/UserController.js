@@ -9,7 +9,6 @@ export const courses = async(req,res) => {
   try{
     const courses = await Courses.find();
     res.json(courses);
-
   }
   catch(e){
     res.status(500).json({ message: err.message });
@@ -149,19 +148,57 @@ export const sendEmail = async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    res.json({ success: true, code: codeForEmail });  // Возвращаем код в ответе
+    res.json({ success: true, code: codeForEmail }); 
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 };
 
-
+export const resPass = async(req,res) => {
+  function generateRandomCode(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charactersLength);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
+  }
   
-    // Отправьте письмо
-    //   await transporter.sendMail(mailOptions, function(error, info){
-    //   if (error) {
-    //     console.error(error);
-    //   } else {
-    //     console.log('Email sent: ' + info.response);
-    //   }
-    // });
+  const codeForReset = generateRandomCode(8); 
+  try{
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'tigranoganisyan2004@gmail.com',
+        pass: 'wxla beap wiry tfkj'
+      }
+    });
+    
+    const mailOptions = {
+      from: 'tigranoganisyan2004@gmail.com',
+      to: req.body.email,
+      subject: 'Тема письма',
+      text: 'Текст письма',
+      html: 'your new password ' + codeForReset
+    };
+    
+    await transporter.sendMail(mailOptions);
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(codeForReset, salt)
+    const newPass = await UsersModel.updateOne({email : req.body.email}, {$set: {passwordHash : hash}})
+    res.json({ success: true, code: codeForReset });
+  }
+  catch(e){
+    res.status(500).json({ error: e.message });
+  }
+  try{
+    
+  }
+  catch(e){
+    console.log(e) 
+    console.log("не удалось поменять пароль")
+  }
+}
+

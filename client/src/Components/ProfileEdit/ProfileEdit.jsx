@@ -1,64 +1,84 @@
+// ProfileEdit.js
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import './ProfileEdit.css';
 
-const ProfileEdit = () => {
+Modal.setAppElement('#root');
+
+const ProfileEdit = ({ isOpen, isClose }) => {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
-        bio: '',
+        password: '',
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
-        ...formData,
-        [name]: value,
+            ...formData,
+            [name]: value,
         });
     };
 
+    const postNewData = async(res, req) => {
+        
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Здесь можно добавить логику для отправки данных на сервер
-        console.log('Submitted data:', formData);
+        postNewData()
+        // console.log('Submitted data:', formData);
+        isClose();
     };
 
     return (
-        <div className="profile-edit-container">
-        <form className="profile-edit-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-            <label htmlFor="username">Имя пользователя:</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-            />
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={isClose}
+            contentLabel="Edit Profile"
+            className="Modal"
+            overlayClassName="Overlay"
+        >
+            <div className="profile-edit-container">
+                <form className="profile-edit-form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="fullName">Имя пользователя:</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">New password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="submit-button">Сохранить</button>
+                    <button type="button" className="cancel-button" onClick={isClose}>Отмена</button>
+                </form>
             </div>
-            <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-            />
-            </div>
-            <div className="form-group">
-            <label htmlFor="bio">О себе:</label>
-            <textarea
-                id="bio"
-                name="bio"
-                value={formData.bio}
-                onChange={handleChange}
-            />
-            </div>
-            <button type="submit" className="submit-button">Сохранить</button>
-        </form>
-        </div>
+        </Modal>
     );
 };
 
