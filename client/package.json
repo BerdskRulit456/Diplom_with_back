@@ -15,6 +15,7 @@
     "http-proxy-middleware": "^3.0.0",
     "nodemailer": "^6.9.13",
     "react": "^18.2.0",
+    "react-chat-elements": "^12.0.14",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dnd-touch-backend": "^16.0.1",

@@ -22,7 +22,7 @@ const DragItem = ({ id, name, type }) => {
                 borderRadius: '4px',
                 textAlign: 'center',
                 margin: '10px',
-                whiteSpace: 'nowrap',
+                whiteSpace: 'wrap',
                 maxWidth: '100%',
             }}
         >

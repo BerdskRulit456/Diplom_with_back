@@ -15,6 +15,7 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
+    const [userType, setUserType] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
     const [emailCode, setEmailCode] = useState('');
@@ -38,7 +39,7 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
         console.log('Подтвержденный код:', code);
         handleCloseModal();
         try {
-            const response = await axios.post('/register', { fullName, email, password });
+            const response = await axios.post('/register', { fullName, email, password, userType });
             if ('token' in response.data) {
                 window.localStorage.setItem('token', response.data.token);
             }
@@ -86,9 +87,15 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
                 const response = await axios.post('/login', { email, password });
                 if ('token' in response.data) {
                     window.localStorage.setItem('token', response.data.token);
+                    if('_id','fullName','email' in response.data){
+                        window.localStorage.setItem('_id', response.data._id);
+                        window.localStorage.setItem('fullName', response.data.fullName);
+                        window.localStorage.setItem('email', response.data.email);
+                    }
                 } else {
                     console.log('не удалось авторизоваться');
                 }
+                
                 setIsLoggedIn(true);
                 message.success("Вы успешно авторизовались");
                 navigate('/');
@@ -155,6 +162,28 @@ export const LoginSignup = ({ setIsLoggedIn }) => {
                             </div>
                         }
 
+                        {action === "Sign Up" && (
+                            <div className="radio-buttons">
+                                <label className='radiobutton'>
+                                    <input
+                                        type="radio"
+                                        value="student"
+                                        checked={userType === "student"}
+                                        onChange={() => setUserType("student")}
+                                    />
+                                    Я студент
+                                </label>
+                                <label className='radiobutton'>
+                                    <input
+                                        type="radio"
+                                        value="teacher"
+                                        checked={userType === "teacher"}
+                                        onChange={() => setUserType("teacher")}
+                                    />
+                                    Я преподаватель
+                                </label>
+                            </div>
+                        )}
                     </div>
                     {action !== "Sign Up" &&
                         <div className="forgot-password">Lost password? <span onClick={openResPass}>Click Here!</span></div>

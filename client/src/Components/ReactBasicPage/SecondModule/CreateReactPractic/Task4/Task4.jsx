@@ -41,7 +41,7 @@ const Task1 = ({ updateScore }) => {
             updateScore(1, score); // Update parent state with score
 
             setTimeout(() => {
-                navigate('/React%20Basics/SecondModule/Practic/Task2');
+                navigate('/React%20Basics/SecondModule/Practic/Task3');
             }, 2000);
         } else if (type === 'TYPE_B') {
             setDroppedItem(null);
@@ -67,23 +67,20 @@ const Task1 = ({ updateScore }) => {
                 <div style={{ display: 'flex', flexGrow: 1 }}>
                     <Sidebar />
                     <div style={{ marginLeft: isMobile ? 0 : 240, padding: 20, flexGrow: 1 }}>
-                        <h1>Что такое React и с чем его едят</h1>
+                        <h1>Создание React-приложения</h1>
                         <div style={{ padding: '20px'}}>
                             <div className="question">
-                                Какой подход использует React для упрощения поддержки и масштабирования приложения?
+                                Какой шаг необходим для начала работы с React
                             </div>
                             <ul style={{listStyle: 'none', paddingLeft: '0px'}}>
                                 <li>
-                                    {!droppedItem && <DragItem id="1" name="a) Модульный подход" type="TYPE_A" />}
+                                    {!droppedItem && <DragItem id="1" name="a) Установка Node.js и npm" type="TYPE_A" />}
                                 </li>
                                 <li>
-                                    {!droppedItem && <DragItem id="2" name="b) Компонентный подход" type="TYPE_B" />}
+                                    {!droppedItem && <DragItem id="2" name="b) Установка Visual Studio Code" type="TYPE_B" />}
                                 </li>
                                 <li>
-                                    {!droppedItem && <DragItem id="3" name="c) Объектно-ориентированный подход" type="TYPE_B" />}
-                                </li>
-                                <li>
-                                    {!droppedItem && <DragItem id="4" name="d) Функциональный подход" type="TYPE_B" />}
+                                    {!droppedItem && <DragItem id="3" name="c) Установка Java Development Kit" type="TYPE_B" />}
                                 </li>
                             </ul>
                             <DropContainer onDrop={handleDrop}>
@@ -100,3 +97,8 @@ const Task1 = ({ updateScore }) => {
 };
 
 export default Task1;
+
+
+//
+//
+//

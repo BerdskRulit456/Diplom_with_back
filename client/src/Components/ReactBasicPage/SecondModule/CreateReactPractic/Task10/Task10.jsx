@@ -13,8 +13,40 @@ const Task1 = ({ updateScore }) => {
     const [droppedItem, setDroppedItem] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [correctMessage, setCorrectMessage] = useState('');
-    const [attempts, setAttempts] = useState(0); // Track attempts
+    const [attempts, setAttempts] = useState(0); 
     const navigate = useNavigate();
+
+    const optionA = () => {
+        return(
+                <div>
+                    <code><pre>class Welcome extends React.Component {'{\n render(){\n return <h1> Привет, {this.props.name}! </h1>\n}\n}'}</pre></code>
+                </div>
+        )
+    }
+    const optionB = () => {
+            return(
+                    <div>
+                        <code><pre>function Welcome(props) {'{\n return <h1> Привет, {props.name}! </h1>\n}'}</pre></code>
+                    </div>
+            )
+        }
+
+    const optionC = () => {
+        return(
+                <div>
+                    <code><pre>function Welcome() {'{\n return  <h1>Привет, Мир!</h1>\n}'}</pre></code>
+                </div>
+            )
+        }
+
+    const optionD = () => {
+        return(
+            <div>
+                <code><pre>const Welcome = (props) {'=> {\n return <h1> Привет, {props.name}!</h1>\n}'}</pre></code>
+            </div>
+            )
+    }
+
 
     useEffect(() => {
         console.log("Current attempts:", attempts);
@@ -41,7 +73,7 @@ const Task1 = ({ updateScore }) => {
             updateScore(1, score); // Update parent state with score
 
             setTimeout(() => {
-                navigate('/React%20Basics/SecondModule/Practic/Task2');
+                navigate('/React%20Basics/SecondModule/Practic/Task3');
             }, 2000);
         } else if (type === 'TYPE_B') {
             setDroppedItem(null);
@@ -67,25 +99,22 @@ const Task1 = ({ updateScore }) => {
                 <div style={{ display: 'flex', flexGrow: 1 }}>
                     <Sidebar />
                     <div style={{ marginLeft: isMobile ? 0 : 240, padding: 20, flexGrow: 1 }}>
-                        <h1>Что такое React и с чем его едят</h1>
+                    <h1>Функциональные и классовые компоненты</h1>
                         <div style={{ padding: '20px'}}>
-                            <div className="question">
-                                Какой подход использует React для упрощения поддержки и масштабирования приложения?
-                            </div>
-                            <ul style={{listStyle: 'none', paddingLeft: '0px'}}>
-                                <li>
-                                    {!droppedItem && <DragItem id="1" name="a) Модульный подход" type="TYPE_A" />}
-                                </li>
-                                <li>
-                                    {!droppedItem && <DragItem id="2" name="b) Компонентный подход" type="TYPE_B" />}
-                                </li>
-                                <li>
-                                    {!droppedItem && <DragItem id="3" name="c) Объектно-ориентированный подход" type="TYPE_B" />}
-                                </li>
-                                <li>
-                                    {!droppedItem && <DragItem id="4" name="d) Функциональный подход" type="TYPE_B" />}
-                                </li>
-                            </ul>
+                        <ul style={{listStyle: 'none', paddingLeft: '0px'}}>
+                            <li>
+                                {!droppedItem && <DragItem id="1" name= {optionA()} type="TYPE_B" />}
+                            </li>
+                            <li>
+                                {!droppedItem && <DragItem id="2" name=  {optionB()} type="TYPE_A" />}
+                            </li>
+                            <li>
+                                {!droppedItem && <DragItem id="3" name={optionC()} type="TYPE_B" />}
+                            </li>
+                            <li>
+                                {!droppedItem && <DragItem id="2" name={optionD()} type="TYPE_B" />}
+                            </li>
+                        </ul>
                             <DropContainer onDrop={handleDrop}>
                                 {droppedItem ? droppedItem.name : 'Всё ясно!'}
                             </DropContainer>

@@ -16,6 +16,7 @@ const SidebarContainer = styled('div')({
     position: 'fixed',
     top: 0,
     left: 0,
+    overflowY: 'auto'
 });
 
 const sections = [
@@ -34,15 +35,39 @@ const sections = [
                 subitems: [
                     { key: '3.1', text: '2.2.1 Практическое задание 1', path: '/React%20Basics/SecondModule/Practic/Task1' },
                     { key: '3.2', text: '2.2.2 Практическое задание 2', path: '/React%20Basics/SecondModule/Practic/Task2' },
+                    { key: '3.3', text: '2.2.3 Практическое задание 3', path: '/React%20Basics/SecondModule/Practic/Task3' },
+                ] 
+            },
+            { key: '3', text: '2.3 Создание React-приложения', path: '/React%20Basics/SecondModule/Theory/CreateReactTheory' },
+            { 
+                key: '4', 
+                text: '2.4 Практика', 
+                path: '', 
+                subitems: [
+                    { key: '4.1', text: '2.3.1 Практическое задание 1', path: '/React%20Basics/SecondModule/Practic/Task4' },
+                    { key: '4.2', text: '2.3.2 Практическое задание 2', path: '/React%20Basics/SecondModule/Practic/Task5' },
+                    { key: '4.3', text: '2.3.3 Практическое задание 3', path: '/React%20Basics/SecondModule/Practic/Task6' },
+                ] 
+            },
+            { key: '5', text: '2.5 Создание React-приложения: Продолжение', path: '/React%20Basics/SecondModule/Theory/CreateReactTheory3' },
+            { key: '6', text: '2.6 Функциональные и классовые компоненты', path: '/React%20Basics/SecondModule/Theory/FunctionalComponentsTheory1' },
+            { 
+                key: '7', 
+                text: '2.7 Практика', 
+                path: '', 
+                subitems: [
+                    { key: '7.1', text: '2.7.1 Практическое задание 1', path: '/React%20Basics/SecondModule/Practic/Task7' },
+                    { key: '7.2', text: '2.7.2 Практическое задание 2', path: '/React%20Basics/SecondModule/Practic/Task8' },
+                    { key: '7.3', text: '2.7.3 Практическое задание 3', path: '/React%20Basics/SecondModule/Practic/Task9' },
+                    { key: '7.4', text: '2.7.4 Практическое задание 4', path: '/React%20Basics/SecondModule/Practic/Task10' },
                 ] 
             },
         ],
     },
     {
-        title: 'Дополнительно: Utils',
+        title: 'Заключение',
         items: [
-            { text: '3.1 Devtools & eslint', path: '/third-page' },
-            // другие элементы...
+            { text: '3.1 Финал!', path: '/React%20Basics/Thrid/FinalPage' },
         ],
     },
 ];
@@ -85,7 +110,7 @@ function Sidebar() {
                     aria-label="open drawer"
                     edge="start"
                     onClick={handleDrawerToggle}
-                    style={{ position: 'fixed', top: 10, left: 10, zIndex: 1300 }}
+                    style={{position: 'absolute', top: 25, left: 10, zIndex: 100, color: '#fff' }}
                 >
                     <MenuIcon />
                 </IconButton>

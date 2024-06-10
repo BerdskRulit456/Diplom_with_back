@@ -7,6 +7,7 @@ const MenuForAcc = ({isLoggedIn}) => {
     const unLoggedIn = () => {
         isLoggedIn = false
         localStorage.removeItem('token');
+        localStorage.removeItem('_id');
         console.log("1")
     }
     const closeEdit = () =>{ setIsEditOpen(false) }
@@ -19,7 +20,8 @@ const MenuForAcc = ({isLoggedIn}) => {
             <div className="popup-menu">
                 <ul>
                     <li><a onClick={isOpen}>Edit</a></li>
-                    <li><a href="/" onClick={unLoggedIn}>LogOut </a></li>
+                    <li><a href="/" onClick={unLoggedIn}>LogOut</a></li>
+                    <li><a href="/Chat">My chats</a></li>
                 </ul>
             </div>
             <ProfileEdit isOpen = {isEditOpen} isClose = {closeEdit}/>

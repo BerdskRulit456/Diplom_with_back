@@ -4,12 +4,12 @@ a{
 
 .reg__comp{
     height: 105vh;
-    background: linear-gradient(-45deg, #ed193b, #a98055, #ce73c0, #681d7a);
+    /* background: linear-gradient(-45deg, #ed193b, #a98055, #ce73c0, #681d7a); */
 	background-size: 400% 400%;
-	animation: gradient 10s ease infinite;
+	/* animation: gradient 10s ease infinite; */
 }
 
-@keyframes gradient {
+/* @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
 	}
@@ -19,14 +19,14 @@ a{
 	100% {
 		background-position: 0% 50%;
 	}
-}
+} */
 
 .container{
     display: flex;
     flex-direction: column;
     margin: auto;
     width: 600px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(122, 122, 122, 0.2);
     border: 1px rgba(255, 255, 255, 0.1) solid;
     border-radius: 15px;
     backdrop-filter: blur(10px);
@@ -102,7 +102,7 @@ a{
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin: 50px auto;
+    margin: 40px auto;
     flex-wrap: wrap;
 }
 
@@ -113,7 +113,7 @@ a{
     width: 220px;
     height: 59px;
     color: #fff;
-    background: #4c00b4;
+    background: #1200b4;
     border-radius: 50px;
     font-size: 17px;
     font-weight: 700px;
@@ -126,7 +126,16 @@ a{
 }
 
 .gray{
-    background: #EAEAEA;
+    background: #d4d4d4;
     color: #676767;
 }
 
+.radio-buttons{
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+}
+
+.radiobutton{
+    margin-bottom: 10px;
+}

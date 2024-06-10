@@ -16,7 +16,9 @@ const FirstPage = () => {
     const handleDrop = (item, type) => {
         if (type === 'TYPE_A') {
             setDroppedItem(item);
-            navigate('/React%20Basics/SecondModule/Theory')
+            setTimeout(() => {
+                navigate('/React%20Basics/SecondModule/Theory');
+            }, 500);
         } 
     };
 
